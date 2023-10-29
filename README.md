@@ -36,3 +36,17 @@ npm run build
 You can preview the production build with `npm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+
+# SvelteKit map using MapLibre GL JS
+
+A web map application with SvelteKit using MapLibre GL JS.
+
+### API KEY
+
+Create a `.env` file
+
+Open the `.env` file, you will need to add **MAPTILER_API_KEY** with your own MapTiler API key.
+
+Your MapTiler account access key is on your MapTiler [Cloud](https://cloud.maptiler.com/account/keys/) account page.
+
+:information_source: If you don't have an API KEY, you can create it for free at https://www.maptiler.com/cloud/
