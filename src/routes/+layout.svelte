@@ -5,6 +5,21 @@
 	import { initializeStores, Drawer, getDrawerStore } from '@skeletonlabs/skeleton';
 	import Navigation from '$lib/components/Navigation.svelte';
 
+	import { onNavigate } from '$app/navigation'
+
+	onNavigate((navigation) => {
+		// @ts-expect-error - This method is not yet in the types
+		if (!document.startViewTransition) return
+
+		return new Promise((resolve) => {
+			// @ts-expect-error - This method is not yet in the types
+			document.startViewTransition(async () => {
+				resolve()
+				await navigation.complete
+			})
+		})
+	})
+
 	initializeStores();
 
 	const drawerStore = getDrawerStore();
