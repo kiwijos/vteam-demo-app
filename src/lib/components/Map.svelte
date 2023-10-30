@@ -38,18 +38,24 @@ $: if (mapContainer) {
 <style>
 @import 'maplibre-gl/dist/maplibre-gl.css';
 
-.map {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 100%;
-    z-index: 1;
-}
+.map-wrap {
+        position: relative;
+        width: 100%;
+        height: calc(
+            100vh - 60px
+        ); /* calculate height of the screen minus the heading */
+    }
 
-.watermark {
-    position: absolute;
-    left: 10px;
-    bottom: 10px;
-    z-index: 999;
-}
+    .map {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+
+    .watermark {
+        position: absolute;
+        left: 10px;
+        bottom: 10px;
+        z-index: 999;
+    }
 </style>
