@@ -1,5 +1,12 @@
 <script lang="ts">
 	import { getDrawerStore } from '@skeletonlabs/skeleton';
+	import { page } from '$app/stores'
+
+	const paths = [
+		{ name: 'Home', path: '/' },
+		{ name: 'About', path: '/about' },
+		{ name: 'Map', path: '/map' }
+	]
 
 	const drawerStore = getDrawerStore();
 
@@ -10,8 +17,12 @@
 
 <nav class="list-nav p-4">
 	<ul>
-		<li><a href="/" on:click={drawerClose}>Home</a></li>
-		<li><a href="/about" on:click={drawerClose}>About</a></li>
-		<li><a href="/map" on:click={drawerClose}>Map</a></li>
+		{#each paths as { name, path }}
+			{@const active = $page.url.pathname === path ? 'page' : null}
+			{@const activeClass = $page.url.pathname === path ? 'variant-soft-primary ' : ''}
+			<li>
+				<a class={activeClass} aria-current={active} href={path} on:click={drawerClose}>{name}</a>
+			</li>
+		{/each}
 	</ul>
 </nav>
