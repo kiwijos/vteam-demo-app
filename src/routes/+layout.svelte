@@ -4,6 +4,7 @@
 	import { AppBar } from '@skeletonlabs/skeleton';
 	import { initializeStores, Drawer, getDrawerStore } from '@skeletonlabs/skeleton';
 	import Navigation from '$lib/components/Navigation.svelte';
+	import { autoModeWatcher } from '@skeletonlabs/skeleton';
 
 	import { onNavigate } from '$app/navigation'
 
@@ -28,6 +29,8 @@
 		drawerStore.open({});
 	}
 </script>
+
+<svelte:head>{@html `<script>${autoModeWatcher.toString()} autoModeWatcher();</script>`}</svelte:head>
 
 <!-- The drawer overlays the page when active -->
 <Drawer>
