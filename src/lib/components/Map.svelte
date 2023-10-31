@@ -4,24 +4,22 @@
 
     let mapContainer: HTMLDivElement;
 
-const init = () => {
+const setupMap = () => {
     const initialState = { lat: 57.26445638065038, lng: 16.450846005270446, zoom: 14 };
 
-    return new Promise<boolean>(() => {
-        const map = new Map({
+    const map = new Map({
             container: mapContainer,
             style: `https://api.maptiler.com/maps/streets/style.json?key=${PUBLIC_MAPTILER_API_KEY}`,
             center: [initialState.lng, initialState.lat],
             zoom: initialState.zoom,
             attributionControl: false
         });
-        map.addControl(new NavigationControl({}), 'top-right');
-        map.addControl(new AttributionControl({ compact: true }), 'bottom-right');
-    });
+    map.addControl(new NavigationControl({}), 'top-right');
+    map.addControl(new AttributionControl({ compact: true }), 'bottom-right');
 };
 
 $: if (mapContainer) {
-    init();
+    setupMap();
 }
 </script>
 
