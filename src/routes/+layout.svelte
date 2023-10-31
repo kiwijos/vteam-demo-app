@@ -5,6 +5,7 @@
 	import { initializeStores, Drawer, getDrawerStore } from '@skeletonlabs/skeleton';
 	import Navigation from '$lib/components/Navigation.svelte';
 	import { autoModeWatcher } from '@skeletonlabs/skeleton';
+	import { LightSwitch } from '@skeletonlabs/skeleton';
 
 	import { onNavigate } from '$app/navigation';
 
@@ -28,14 +29,10 @@
 	function drawerOpen(): void {
 		drawerStore.open({});
 	}
-
-	const modeWatcherScriptElement: string =
-		'<scripts>' + autoModeWatcher.toString() + ' ' + 'autoModeWatcher();' + '</scripts>';
 </script>
 
 <svelte:head>
-	<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-	{@html modeWatcherScriptElement}
+	{@html `<script>${autoModeWatcher.toString()} autoModeWatcher();</script>`}
 </svelte:head>
 
 <!-- The drawer overlays the page when active -->
