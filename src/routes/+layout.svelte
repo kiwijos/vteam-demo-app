@@ -28,11 +28,15 @@
 	function drawerOpen(): void {
 		drawerStore.open({});
 	}
+
+	const modeWatcherScriptElement: string =
+		'<scripts>' + autoModeWatcher.toString() + ' ' + 'autoModeWatcher();' + '</scripts>';
 </script>
 
-<svelte:head
-	>{@html `<script>${autoModeWatcher.toString()} autoModeWatcher();</script>`}</svelte:head
->
+<svelte:head>
+	<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+	{@html modeWatcherScriptElement}
+</svelte:head>
 
 <!-- The drawer overlays the page when active -->
 <Drawer class="z-2">
