@@ -54,6 +54,6 @@ $: if (mapContainer) {
         position: absolute;
         left: 10px;
         bottom: 10px;
-        z-index: 999;
+        z-index: 1;
     }
 </style>

@@ -33,7 +33,7 @@
 <svelte:head>{@html `<script>${autoModeWatcher.toString()} autoModeWatcher();</script>`}</svelte:head>
 
 <!-- The drawer overlays the page when active -->
-<Drawer>
+<Drawer class="z-2">
 	<Navigation />
 </Drawer>
 
