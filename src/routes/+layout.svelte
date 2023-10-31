@@ -6,20 +6,20 @@
 	import Navigation from '$lib/components/Navigation.svelte';
 	import { autoModeWatcher } from '@skeletonlabs/skeleton';
 
-	import { onNavigate } from '$app/navigation'
+	import { onNavigate } from '$app/navigation';
 
 	onNavigate((navigation) => {
 		// @ts-expect-error - This method is not yet in the types
-		if (!document.startViewTransition) return
+		if (!document.startViewTransition) return;
 
 		return new Promise((resolve) => {
 			// @ts-expect-error - This method is not yet in the types
 			document.startViewTransition(async () => {
-				resolve()
-				await navigation.complete
-			})
-		})
-	})
+				resolve();
+				await navigation.complete;
+			});
+		});
+	});
 
 	initializeStores();
 
@@ -30,7 +30,9 @@
 	}
 </script>
 
-<svelte:head>{@html `<script>${autoModeWatcher.toString()} autoModeWatcher();</script>`}</svelte:head>
+<svelte:head
+	>{@html `<script>${autoModeWatcher.toString()} autoModeWatcher();</script>`}</svelte:head
+>
 
 <!-- The drawer overlays the page when active -->
 <Drawer class="z-2">

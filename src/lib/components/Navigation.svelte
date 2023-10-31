@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { getDrawerStore } from '@skeletonlabs/skeleton';
-	import { page } from '$app/stores'
+	import { page } from '$app/stores';
 
 	const paths = [
 		{ name: 'Home', path: '/' },
 		{ name: 'About', path: '/about' },
 		{ name: 'Map', path: '/map' }
-	]
+	];
 
 	const drawerStore = getDrawerStore();
 
