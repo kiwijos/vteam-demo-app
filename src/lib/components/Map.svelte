@@ -17,7 +17,7 @@
 		});
 		_map.addControl(new NavigationControl({}), 'top-right');
 		_map.addControl(new AttributionControl({ compact: true }), 'bottom-right');
-		
+
 		map.set(_map);
 	};
 
