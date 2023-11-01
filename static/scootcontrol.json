@@ -8,7 +8,7 @@
 	"display": "standalone",
 	"icons": [
 		{
-			"src": "bike-scooter-outline.svg",
+			"src": "icons/bike-scooter-outline.svg",
 			"sizes": "any"
 		}
 	]
