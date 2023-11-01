@@ -1,22 +1,20 @@
-# create-svelte
+## SvelteKit app using MapLibre GL JS
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+A web map application with SvelteKit using MapLibre GL JS.
 
-## Creating a project
+### API KEY
 
-If you're seeing this, you've probably already done this step. Congrats!
+Create a `.env` file or simply copy and/or rename the `.env.example` file.
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+Open the `.env` file, you will need to add/replace **MAPTILER_API_KEY** with your own MapTiler API key.
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+Your MapTiler account access key is on your MapTiler [Cloud](https://cloud.maptiler.com/account/keys/) account page.
+
+:information_source: If you don't have an API KEY, you can create it for free at https://www.maptiler.com/cloud/
 
 ## Developing
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Once you've copied the project and installed dependencies with `npm install`, start a development server:
 
 ```bash
 npm run dev
@@ -27,26 +25,32 @@ npm run dev -- --open
 
 ## Building
 
-To create a production version of your app:
+To create a production version of the app:
 
 ```bash
 npm run build
 ```
 
-You can preview the production build with `npm run preview`.
+You can preview the production build with `npm run preview` or run it with `node -r dotenv/config build`.
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+> .env files are not automatically loaded in production, hence the use of dotenv.
 
-# SvelteKit map using MapLibre GL JS
+## Build and Deploy using Docker
 
-A web map application with SvelteKit using MapLibre GL JS.
+To create and deploy a production version of the app using Docker:
 
-### API KEY
+```bash
+# build the image
+docker compose build
 
-Create a `.env` file
+# and start the app running in the background
+docker compose up -d
+```
 
-Open the `.env` file, you will need to add **MAPTILER_API_KEY** with your own MapTiler API key.
+## Using the app as a PWA
 
-Your MapTiler account access key is on your MapTiler [Cloud](https://cloud.maptiler.com/account/keys/) account page.
+The app can be installed to your computer or phone from the browser.
 
-:information_source: If you don't have an API KEY, you can create it for free at https://www.maptiler.com/cloud/
+When run in a secure context, the service worker will intercept requests and either serve the cached version or fetch the resource from the network if possible.
+
+Prerendered pages and static assets can always be served from the cache. In addition, any pages visited will be cached and can be served later even if there is no internet connection.
