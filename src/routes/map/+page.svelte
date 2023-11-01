@@ -11,7 +11,7 @@
 	let _map: MaplibreMap;
 	map.subscribe((value) => (_map = value));
 
-	$: if (_map) {
+	$: if (_map && data?.data.length > 0) {
 		_map.on('load', () => {
 			const polyFeatures = data.data.map((station: ParkingStation) => {
 				return {
