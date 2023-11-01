@@ -10,7 +10,7 @@
 
 		const _map: MaplibreMap = new Map({
 			container: mapContainer,
-			style: `https://api.maptiler.com/maps/streets/style.json?key=${PUBLIC_MAPTILER_API_KEY}`,
+			style: `https://api.maptiler.com/maps/basic-v2/style.json?key=${PUBLIC_MAPTILER_API_KEY}`,
 			center: [initialState.lng, initialState.lat],
 			zoom: initialState.zoom,
 			attributionControl: false
