@@ -1,21 +1,24 @@
 <script lang="ts">
-	import { Map, NavigationControl, AttributionControl } from 'maplibre-gl';
+	import { Map, NavigationControl, AttributionControl, type Map as MaplibreMap } from 'maplibre-gl';
 	import { PUBLIC_MAPTILER_API_KEY } from '$env/static/public';
+	import { map } from '$lib/stores/map';
 
 	let mapContainer: HTMLDivElement;
 
 	const setupMap = () => {
 		const initialState = { lat: 57.26445638065038, lng: 16.450846005270446, zoom: 14 };
 
-		const map = new Map({
+		const _map: MaplibreMap = new Map({
 			container: mapContainer,
 			style: `https://api.maptiler.com/maps/streets/style.json?key=${PUBLIC_MAPTILER_API_KEY}`,
 			center: [initialState.lng, initialState.lat],
 			zoom: initialState.zoom,
 			attributionControl: false
 		});
-		map.addControl(new NavigationControl({}), 'top-right');
-		map.addControl(new AttributionControl({ compact: true }), 'bottom-right');
+		_map.addControl(new NavigationControl({}), 'top-right');
+		_map.addControl(new AttributionControl({ compact: true }), 'bottom-right');
+		
+		map.set(_map);
 	};
 
 	$: if (mapContainer) {
