@@ -1,5 +1,5 @@
-<div class="mx-auto p-8">
-	<div class="card variant-glass-surface p-4">
+<div class="mx-auto p-4 lg:p-8">
+	<div class="card variant-glass-surface p-2 lg:p-4">
 		<div class="p-4 space-y-4">
 			<h2 class="h2">Transforming Urban Mobility</h2>
 			<p>
