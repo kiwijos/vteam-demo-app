@@ -63,7 +63,5 @@
 	<svelte:fragment slot="sidebarLeft">
 		<Navigation />
 	</svelte:fragment>
-	<div class="container">
 		<slot />
-	</div>
 </AppShell>
