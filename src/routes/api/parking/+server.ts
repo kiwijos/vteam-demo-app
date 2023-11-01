@@ -9,7 +9,7 @@ async function getParking({
 }: {
 	start: number;
 	end: number;
-	parkingId: number;
+	parkingId: number | null;
 }) {
 	// simulate delay when retriving the parkingStations with a promise that resolves after 500ms with the parkingStations
 	const stationsData = await new Promise<ParkingStation[]>((resolve) =>

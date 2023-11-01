@@ -1,4 +1,4 @@
-export interface ChargingStation {
+export interface ParkingStation {
 	id: number;
 	name: string;
 	description: string;

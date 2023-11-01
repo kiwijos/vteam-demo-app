@@ -3,7 +3,7 @@
 	import type { Map as MaplibreMap } from 'maplibre-gl';
 	import { map } from '$lib/stores/map';
 	import type { PageData } from './$types';
-	import type { ChargingStation } from '$lib/types/ChargingStation';
+	import type { ParkingStation } from '$lib/types/ParkingStation';
 	import polylabel from 'polylabel';
 
 	export let data: PageData;
@@ -13,7 +13,7 @@
 
 	$: if (_map) {
 		_map.on('load', () => {
-			const polyFeatures = data.data.map((station: ChargingStation) => {
+			const polyFeatures = data.data.map((station: ParkingStation) => {
 				return {
 					type: 'Feature',
 					geometry: {
@@ -42,7 +42,7 @@
 				}
 			});
 
-			const pointFeatures = data.data.map((station: ChargingStation) => {
+			const pointFeatures = data.data.map((station: ParkingStation) => {
 				return {
 					type: 'Feature',
 					geometry: {
