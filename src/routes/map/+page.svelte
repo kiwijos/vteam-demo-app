@@ -95,14 +95,3 @@
 </script>
 
 <Map />
-
-<style>
-	.marker {
-		display: block;
-		border: none;
-		border-radius: 50%;
-		background-repeat: no-repeat;
-		cursor: pointer;
-		padding: 0;
-	}
-</style>
