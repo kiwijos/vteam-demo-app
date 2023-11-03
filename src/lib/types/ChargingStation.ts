@@ -1,11 +1,8 @@
+import type { GeoJsonPolygon } from './subtypes/GeoJsonPolygon';
+
 export interface ChargingStation {
-	id: number;
+	id: string;
 	name: string;
 	description: string;
-	geometry: {
-		type: string;
-		coordinates: number[][][];
-	};
-	image: string;
-	imageAlt: string;
+	location: GeoJsonPolygon;
 }

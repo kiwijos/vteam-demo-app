@@ -1,8 +1,7 @@
 import type { GeoJsonPolygon } from './subtypes/GeoJsonPolygon';
 
-export interface ParkingStation {
+export interface City {
 	id: string;
 	name: string;
-	description: string;
 	location: GeoJsonPolygon;
 }
