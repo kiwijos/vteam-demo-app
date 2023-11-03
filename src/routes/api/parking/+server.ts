@@ -1,35 +1,32 @@
 import { json } from '@sveltejs/kit';
-import type { ParkingStation } from '$lib/types/ParkingStation';
-import { parkingStations } from '$lib/data/parkingStations';
+import type { ParkingStation as ParkingStationType } from '$lib/types/ParkingStation';
+import { ParkingStation } from '$lib/db/models/parkingStationModel';
 
-async function getParking({
-	start = 0,
-	end = 10,
-	parkingId = null
-}: {
-	start: number;
-	end: number;
-	parkingId: number | null;
-}) {
-	// simulate delay when retriving the parkingStations with a promise that resolves after 500ms with the parkingStations
-	const stationsData = await new Promise<ParkingStation[]>((resolve) =>
-		setTimeout(() => resolve(parkingStations), 500)
-	);
+async function getParkingStations({ stationId = null }: { stationId: string | null }) {
+	let res = [];
 
-	if (parkingId) {
-		const stationsWithId = stationsData.filter((station) => station.id === parkingId);
-		return stationsWithId.slice(start, end);
+	if (stationId) {
+		res.push(await ParkingStation.findById(stationId));
 	} else {
-		return stationsData.slice(start, end);
+		res = await ParkingStation.find();
 	}
+
+	const stationsData: ParkingStationType[] = res.map((station) => {
+		return {
+			id: station._id.toString(),
+			name: station.name,
+			description: station.description,
+			location: station.location
+		};
+	});
+
+	return stationsData;
 }
 
 export async function GET({ url }) {
-	const start = Number(url.searchParams.get('start')) || 0;
-	const end = Number(url.searchParams.get('end')) || 10;
-	const parkingId = Number(url.searchParams.get('parkingId')) || null;
+	const stationId = url.searchParams.get('stationId') || null;
 
-	const stationsData = await getParking({ start, end, parkingId });
+	const stationsData = await getParkingStations({ stationId });
 
 	return json(stationsData);
 }
