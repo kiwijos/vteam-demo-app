@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Map from '$lib/components/Map.svelte';
-	import { Popup, Marker, type Map as MaplibreMap } from 'maplibre-gl';
+	import type { Map as MaplibreMap } from 'maplibre-gl';
+	import maplibregl from 'maplibre-gl';
 	import { map } from '$lib/stores/map';
 	import type { PageData } from './$types';
 	import type { ParkingStation } from '$lib/types/ParkingStation';
@@ -70,12 +71,12 @@
 				});
 
 				// add marker to map
-				new Marker({ element: el }).setLngLat(marker.geometry.coordinates).addTo(_map);
+				new maplibregl.Marker({ element: el }).setLngLat(marker.geometry.coordinates).addTo(_map);
 			});
 
 			// When a click event occurs on a feature in the stations layer, open popup
 			_map.on('click', 'stations-layer', (e) => {
-				new Popup()
+				new maplibregl.Popup()
 					.setLngLat(e.lngLat)
 					.setText(e.features ? e.features[0].properties.name : '<missing>')
 					.addTo(_map);
