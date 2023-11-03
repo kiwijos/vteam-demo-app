@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Map from '$lib/components/Map.svelte';
-	import type { Map as MaplibreMap } from 'maplibre-gl';
+	import { Marker, type Map as MaplibreMap } from 'maplibre-gl';
 	import { map } from '$lib/stores/map';
 	import type { PageData } from './$types';
 	import type { ParkingStation } from '$lib/types/ParkingStation';
@@ -17,10 +17,10 @@
 				return {
 					type: 'Feature',
 					geometry: {
-						type: station.geometry.type,
-						coordinates: station.geometry.coordinates
+						type: station.location.type,
+						coordinates: station.location.coordinates
 					},
-					properties: {}
+					properties: { name: station.name }
 				};
 			});
 
@@ -32,48 +32,63 @@
 				}
 			});
 			_map.addLayer({
-				id: 'stations',
+				id: 'stations-layer',
 				type: 'fill',
 				source: 'stations',
 				layout: {},
 				paint: {
-					'fill-color': '#088',
-					'fill-opacity': 0.8
+					'fill-color': 'rgba(200, 100, 240, 0.4)',
+                	'fill-outline-color': 'rgba(200, 100, 240, 1)'
 				}
 			});
 
-			const pointFeatures = data.data.map((station: ParkingStation) => {
-				return {
-					type: 'Feature',
-					geometry: {
-						type: 'Point',
-						coordinates: polylabel(station.geometry.coordinates, 1.0)
-					},
-					properties: { name: station.name }
-				};
-			});
+			const customMarkers = {
+				'type': 'FeatureCollection',
+				features: data.data.map((station: ParkingStation) => {
+					return {
+						type: 'Feature',
+						geometry: {
+							type: 'Point',
+							coordinates: polylabel(station.location.coordinates, 1.0)
+						},
+						properties: { name: station.name, iconSize: [25, 25] }
+						
+					}
+				})
+			}
 
-			_map.addSource('stationNames', {
-				type: 'geojson',
-				data: {
-					type: 'FeatureCollection',
-					features: pointFeatures
-				}
-			});
-			_map.addLayer({
-				id: 'stationNames',
-				type: 'symbol',
-				source: 'stationNames',
-				layout: {
-					// get the name from the source's "name" property
-					'text-field': ['get', 'name'],
-					'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
-					'text-offset': [0, 1.25],
-					'text-anchor': 'top'
-				}
+			// add markers to map
+			customMarkers.features.forEach((marker: any) => {
+				// create a DOM element for the marker
+				const el = document.createElement('div');
+				el.className = 'marker';
+				el.style.backgroundImage =
+					`url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="24" height="24" viewBox="0 0 24 24"%3E%3Cpath fill="currentColor" d="M6 21V3h7q2.5 0 4.25 1.75T19 9q0 2.5-1.75 4.25T13 15h-3v6H6Zm4-10h3.2q.825 0 1.413-.588T15.2 9q0-.825-.587-1.413T13.2 7H10v4Z"%2F%3E%3C%2Fsvg%3E')`;
+				el.style.width = `${marker.properties.iconSize[0]}px`;
+				el.style.height = `${marker.properties.iconSize[1]}px`;
+
+				el.addEventListener('click', () => {
+					window.alert(marker.properties.name);
+				});
+
+				// add marker to map
+				new Marker({element: el})
+					.setLngLat(marker.geometry.coordinates)
+					.addTo(_map);
 			});
 		});
 	}
 </script>
 
 <Map />
+
+<style>
+	.marker {
+        display: block;
+        border: none;
+        border-radius: 50%;
+background-repeat: no-repeat;
+        cursor: pointer;
+        padding: 0;
+    }
+</style>
