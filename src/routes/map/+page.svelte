@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Map from '$lib/components/Map.svelte';
-	import { Marker, type Map as MaplibreMap } from 'maplibre-gl';
+	import { Popup, Marker, type Map as MaplibreMap } from 'maplibre-gl';
 	import { map } from '$lib/stores/map';
 	import type { PageData } from './$types';
 	import type { ParkingStation } from '$lib/types/ParkingStation';
@@ -75,6 +75,24 @@
 				new Marker({element: el})
 					.setLngLat(marker.geometry.coordinates)
 					.addTo(_map);
+			});
+
+			// When a click event occurs on a feature in the stations layer, open popup
+			_map.on('click', 'stations-layer', (e) => {
+				new Popup()
+					.setLngLat(e.lngLat)
+					.setText(e.features ? e.features[0].properties.name : '<missing>' )
+					.addTo(_map);
+			});
+
+			// Change the cursor to a pointer when the mouse is over the layer.
+			_map.on('mouseenter', 'stations-layer', () => {
+				_map.getCanvas().style.cursor = 'pointer';
+			});
+
+			// Change it back to a pointer when it leaves.
+			_map.on('mouseleave', 'stations-layer', () => {
+				_map.getCanvas().style.cursor = '';
 			});
 		});
 	}
