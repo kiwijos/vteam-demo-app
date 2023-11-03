@@ -1,6 +1,6 @@
 import type { City } from '../../types/City';
 
-export const cities: City = [
+export const cities: City[] = [
 	{
 		name: 'Oskarshamn',
 		location: {

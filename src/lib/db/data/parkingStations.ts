@@ -1,4 +1,4 @@
-import type { ParkingStation } from '../../types';
+import type { ParkingStation } from '../../types/ParkingStation';
 
 export const parkingStations: ParkingStation[] = [
 	{
