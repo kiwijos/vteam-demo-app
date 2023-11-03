@@ -38,12 +38,12 @@
 				layout: {},
 				paint: {
 					'fill-color': 'rgba(200, 100, 240, 0.4)',
-                	'fill-outline-color': 'rgba(200, 100, 240, 1)'
+					'fill-outline-color': 'rgba(200, 100, 240, 1)'
 				}
 			});
 
 			const customMarkers = {
-				'type': 'FeatureCollection',
+				type: 'FeatureCollection',
 				features: data.data.map((station: ParkingStation) => {
 					return {
 						type: 'Feature',
@@ -52,18 +52,16 @@
 							coordinates: polylabel(station.location.coordinates, 1.0)
 						},
 						properties: { name: station.name, iconSize: [25, 25] }
-						
-					}
+					};
 				})
-			}
+			};
 
 			// add markers to map
 			customMarkers.features.forEach((marker: any) => {
 				// create a DOM element for the marker
 				const el = document.createElement('div');
 				el.className = 'marker';
-				el.style.backgroundImage =
-					`url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="24" height="24" viewBox="0 0 24 24"%3E%3Cpath fill="currentColor" d="M6 21V3h7q2.5 0 4.25 1.75T19 9q0 2.5-1.75 4.25T13 15h-3v6H6Zm4-10h3.2q.825 0 1.413-.588T15.2 9q0-.825-.587-1.413T13.2 7H10v4Z"%2F%3E%3C%2Fsvg%3E')`;
+				el.style.backgroundImage = `url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="24" height="24" viewBox="0 0 24 24"%3E%3Cpath fill="currentColor" d="M6 21V3h7q2.5 0 4.25 1.75T19 9q0 2.5-1.75 4.25T13 15h-3v6H6Zm4-10h3.2q.825 0 1.413-.588T15.2 9q0-.825-.587-1.413T13.2 7H10v4Z"%2F%3E%3C%2Fsvg%3E')`;
 				el.style.width = `${marker.properties.iconSize[0]}px`;
 				el.style.height = `${marker.properties.iconSize[1]}px`;
 
@@ -72,16 +70,14 @@
 				});
 
 				// add marker to map
-				new Marker({element: el})
-					.setLngLat(marker.geometry.coordinates)
-					.addTo(_map);
+				new Marker({ element: el }).setLngLat(marker.geometry.coordinates).addTo(_map);
 			});
 
 			// When a click event occurs on a feature in the stations layer, open popup
 			_map.on('click', 'stations-layer', (e) => {
 				new Popup()
 					.setLngLat(e.lngLat)
-					.setText(e.features ? e.features[0].properties.name : '<missing>' )
+					.setText(e.features ? e.features[0].properties.name : '<missing>')
 					.addTo(_map);
 			});
 
@@ -102,11 +98,11 @@
 
 <style>
 	.marker {
-        display: block;
-        border: none;
-        border-radius: 50%;
-background-repeat: no-repeat;
-        cursor: pointer;
-        padding: 0;
-    }
+		display: block;
+		border: none;
+		border-radius: 50%;
+		background-repeat: no-repeat;
+		cursor: pointer;
+		padding: 0;
+	}
 </style>

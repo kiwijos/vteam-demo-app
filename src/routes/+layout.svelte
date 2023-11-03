@@ -63,5 +63,5 @@
 	<svelte:fragment slot="sidebarLeft">
 		<Navigation />
 	</svelte:fragment>
-		<slot />
+	<slot />
 </AppShell>
