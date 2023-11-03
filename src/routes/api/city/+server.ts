@@ -1,25 +1,30 @@
 import { json } from '@sveltejs/kit';
 import type { City as CityType } from '$lib/types/City';
 import { City } from '$lib/db/models/cityModel';
+import type { CityResponse } from '$lib/types/CityResponse';
 
-async function getCity({ cityName = null }: { cityName: string | null }) {
-	const res = await City.find(cityName ? { name: cityName } : {});
+async function getCity(cityName: string | null): Promise<CityResponse> {
+	const cities: CityType[] | null = await City.find(cityName ? { name: cityName } : {});
 
-	const cityData: CityType[] = res.map((city) => {
+	if (cities === null) {
 		return {
-			id: city._id.toString(),
-			name: city.name,
-			location: city.location
+			data: null,
+			error: "City doesn't exist",
+			ok: false
 		};
-	});
+	}
 
-	return cityData;
+	return {
+		data: cities,
+		error: '',
+		ok: true
+	};
 }
 
 export async function GET({ url }) {
 	const cityName = url.searchParams.get('cityName') || null;
 
-	const cityData = await getCity({ cityName });
+	const cities = await getCity(cityName);
 
-	return json(cityData);
+	return json(cities);
 }

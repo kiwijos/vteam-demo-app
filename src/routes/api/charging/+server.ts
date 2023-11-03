@@ -1,32 +1,30 @@
 import { json } from '@sveltejs/kit';
 import type { ChargingStation as ChargingStationType } from '$lib/types/ChargingStation';
 import { ChargingStation } from '$lib/db/models/chargingStationModel';
+import type { ChargingStationResponse } from '$lib/types/ChargingStationResponse';
 
-async function getCharingStations({ stationId = null }: { stationId: number | null }) {
-	let res = [];
+async function getChargingStations(id: string | null): Promise<ChargingStationResponse> {
+	const stations: ChargingStationType[] | null = await ChargingStation.find(id ? { _id: id } : {});
 
-	if (stationId) {
-		res.push(await ChargingStation.findById(stationId));
-	} else {
-		res = await ChargingStation.find();
+	if (stations === null) {
+		return {
+			data: null,
+			error: "Charging station doesn't exist",
+			ok: false
+		};
 	}
 
-	const stationsData: ChargingStationType[] = res.map((station) => {
-		return {
-			id: station._id.toString(),
-			name: station.name,
-			description: station.description,
-			location: station.location
-		};
-	});
-
-	return stationsData;
+	return {
+		data: stations,
+		error: '',
+		ok: true
+	};
 }
 
 export async function GET({ url }) {
-	const stationId = Number(url.searchParams.get('stationId')) || null;
+	const id = url.searchParams.get('stationId') || null;
 
-	const stationsData = await getCharingStations({ stationId });
+	const stations = await getChargingStations(id);
 
-	return json(stationsData);
+	return json(stations);
 }
