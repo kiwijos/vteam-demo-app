@@ -1,3 +1,27 @@
+# Project Archive Notice
+
+As of January 28, 2024, this project is officially archived.
+
+### Background
+This project was initially developed as a Proof of Concept (POC) to demonstrate using MapLibre GL JS in SvelteKit. It served its intended purpose and provided some valuable insights.
+
+### Archive Status
+- **No Longer Maintained**: The project is no longer being actively developed or maintained. 
+- **Read-Only**: The repository has been set to read-only mode. This means no new issues, pull requests, or changes will be accepted.
+- **No Support**: We will no longer be providing support for this project. This includes addressing issues, bugs, or requests.
+- **Documentation**: All existing documentation will remain available for reference purposes.
+
+### Implications
+- **Use at Your Own Risk**: Any use of this project's codebase is at your own risk. The project is no longer updated for security, compatibility, or any other changes.
+- **No Future Updates**: There will be no new features, fixes, or updates. The project's current state is its final form.
+
+### Acknowledgements
+Special thanks to the following GitHub repositories for their inspiration and resources:
+- [watergis/sveltekit-maplibre-boilerplate](https://github.com/watergis/sveltekit-maplibre-boilerplate)
+- [maptiler/svelte-template-maplibre-gl-js](https://github.com/maptiler/svelte-template-maplibre-gl-js)
+
+---
+
 ## SvelteKit app using MapLibre GL JS
 
 A web map application with SvelteKit using MapLibre GL JS.
